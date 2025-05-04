@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.application'
+apply plugin: "com.android.application"
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdk 34
     defaultConfig {
         applicationId "com.example.android.testing.espresso.RecyclerViewSample"
-        minSdkVersion 14
-        targetSdkVersion 30
+        minSdkVersion 21
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
 
@@ -35,22 +34,41 @@ android {
         targetCompatibility 1.8
     }
 
-    lintOptions {
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+        managedDevices {
+            devices {
+                // run with ../gradlew  nexusOneApi30DebugAndroidTest
+                nexusOneApi30(com.android.build.api.dsl.ManagedVirtualDevice) {
+                    // A lower resolution device is used here for better emulator performance
+                    device = "Nexus One"
+                    apiLevel = 30
+                    // Also use the AOSP ATD image for better emulator performance
+                    systemImageSource = "aosp-atd"
+                }
+            }
+        }
+    }
+    namespace "com.example.android.testing.espresso.RecyclerViewSample"
+    testNamespace "com.example.android.testing.espresso.RecyclerViewSample.test"
+    lint {
         abortOnError false
     }
 }
 
 dependencies {
     // App dependencies
-    implementation 'androidx.annotation:annotation:' + rootProject.androidxAnnotationVersion;
-    implementation 'androidx.recyclerview:recyclerview:' + rootProject.androidxRecyclerVersion;
-    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation "androidx.annotation:annotation:" + rootProject.androidxAnnotationVersion;
+    implementation "androidx.recyclerview:recyclerview:" + rootProject.androidxRecyclerVersion;
+    implementation "androidx.multidex:multidex:2.0.1"
 
     // Testing-only dependencies
-    androidTestImplementation 'androidx.test:core:' + rootProject.coreVersion;
-    androidTestImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion;
-    androidTestImplementation 'androidx.test:runner:' + rootProject.runnerVersion;
-    androidTestImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion;
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:' + rootProject.espressoVersion;
+    androidTestImplementation "androidx.test:core:" + rootProject.coreVersion;
+    androidTestImplementation "androidx.test.ext:junit:" + rootProject.extJUnitVersion;
+    androidTestImplementation "androidx.test:runner:" + rootProject.runnerVersion;
+    androidTestImplementation "androidx.test.espresso:espresso-core:" + rootProject.espressoVersion;
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:" + rootProject.espressoVersion;
 
 }

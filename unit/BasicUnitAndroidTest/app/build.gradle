@@ -1,23 +1,24 @@
-apply plugin: 'com.android.application'
+apply plugin: "com.android.application"
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdk 33
+    buildToolsVersion = rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "com.example.android.testing.unittesting.basicunitandroidtest"
         minSdkVersion 14
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    namespace "com.example.android.testing.unittesting.basicunitandroidtest"
 }
 
 dependencies {
     // Testing-only dependencies
-    androidTestImplementation 'androidx.test:core:' + rootProject.coreVersion;
-    androidTestImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion;
-    androidTestImplementation 'androidx.test:runner:' + rootProject.runnerVersion;
-    androidTestImplementation 'com.google.truth:truth:' + rootProject.truthVersion
+    androidTestImplementation "androidx.test:core:" + rootProject.coreVersion;
+    androidTestImplementation "androidx.test.ext:junit:" + rootProject.extJUnitVersion;
+    androidTestImplementation "androidx.test:runner:" + rootProject.runnerVersion;
+    androidTestImplementation "com.google.truth:truth:" + rootProject.truthVersion
 }
